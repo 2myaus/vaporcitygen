@@ -11,32 +11,32 @@ const drawCity = () => {
 
 	const ctx=canvas.getContext("2d");
 
-	let darkClr = "#444";
-	let lightClr = "#666";
+	let darkClr = "#434";
+	let lightClr = "#675";
 	let windowClr = "#ff4";
 	let skyClrBase="rgb(255,23,95)";
-	let skyClrMid="#a85ba0";
-	let skyClrTop="#281b50";
+	let skyClrMid="#483ba0";
+	let skyClrTop="#281ba0";
 
 	let scale = 0.1;
 
-	let windowWidMin = 40;
-	let windowWidMax = 250;
-	let windowHeight = 50;
-	let windowVertGap = 50;
+	let windowWidMin = 60;
+	let windowWidMax = 300;
+	let windowHeight = 70;
+	let windowVertGap = 70;
 	let windowHorGapMin = 20;
 	let windowHorGapMax = 250;
 
 	let lightPortion = 0.6;
 
-	let darkwdmin = 300;
-	let darkwdmax = 800;
+	let darkwdmin = 400;
+	let darkwdmax = 1200;
 
 	let bldheightmin = 250;
-	let bldheightmax = (hgt/scale)*0.7;
+	let bldheightmax = (hgt/scale)*0.5;
 
-	let numbldgs = (40/10000)*wid/scale;
-	let numstars = 0.1*wid
+	let numbldgs = (20/10000)*wid/scale;
+	let numstars = 0.05*wid
 
 
 
@@ -155,24 +155,26 @@ const drawCity = () => {
 	uniform float u_t;
 
 	void main() {
-		float t = 100.0;
+		float t = 120.0;
 
 		vec2 fragCoord = vec2(gl_FragCoord.x, u_resolution.y-gl_FragCoord.y);
-
+		fragCoord.x += sin(fragCoord.y*1.0)*u_resolution.x*0.1;
 		vec2 d = abs(fragCoord.xy-u_pointpos);
 		d.x *= sqrt(fragCoord.y/u_resolution.y);
 		d.x = sqrt(d.x/250.0)*250.0;
 		float len = length(d);
 
-		float b = sin(3.141*len/t) * (4.0*t/(len+4.0*t))+0.5;
+		float b = sin(3.141*len/t) * (4.0*t/(len+4.0*t))+0.7;
 		if((mod((floor(fragCoord.x/4.0)), 2.0)!=mod((floor(fragCoord.y/4.0)),2.0))){
-			b *= b;
+			b *= abs(b) * 0.6;
 		}
 		b *= fragCoord.y/u_resolution.y;
+		vec3 clr = vec3(1.0, 0.18, 0.74);
 		if(b < 0.0){
-			b = 0.0;
+			b *= -1.0;
+			//clr = vec3(0.6,0.18,1.0);
 		}
-		gl_FragColor = vec4(1, 0.18, 0.74, b);
+		gl_FragColor = vec4(clr, b);
 	}
 	`;
 
