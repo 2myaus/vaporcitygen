@@ -14,8 +14,11 @@ const drawCity = () => {
 	let darkClr = "#444";
 	let lightClr = "#666";
 	let windowClr = "#ff4";
+	let skyClrBase="rgb(255,23,95)";
+	let skyClrMid="#a85ba0";
+	let skyClrTop="#281b50";
 
-	let scale = 0.05;
+	let scale = 0.1;
 
 	let windowWidMin = 40;
 	let windowWidMax = 250;
@@ -26,22 +29,22 @@ const drawCity = () => {
 
 	let lightPortion = 0.6;
 
-	let darkwdmin = 400;
-	let darkwdmax = 600;
+	let darkwdmin = 300;
+	let darkwdmax = 800;
 
-	let bldheightmin = 500;
-	let bldheightmax = (hgt/scale)*0.5;
+	let bldheightmin = 250;
+	let bldheightmax = (hgt/scale)*0.7;
 
-	let numbldgs = (60/10000)*wid/scale;
+	let numbldgs = (40/10000)*wid/scale;
 	let numstars = 0.1*wid
 
 
 
 
 	const skyGradient = ctx.createLinearGradient(0, 0, 0, hgt);
-	skyGradient.addColorStop(0, '#282b8e');
-	skyGradient.addColorStop(0.8, '#585bae');
-	skyGradient.addColorStop(1, 'rgb(255, 23, 95)');
+	skyGradient.addColorStop(0, skyClrTop);
+	skyGradient.addColorStop(0.8, skyClrMid);
+	skyGradient.addColorStop(1, skyClrBase);
 
 	ctx.fillStyle = skyGradient;
 	ctx.fillRect(0, 0, wid, hgt);
